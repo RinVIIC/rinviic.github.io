@@ -77,13 +77,21 @@
 
   }
 
+  // Independent background layers cannot affect the document's layout or reading order.
+  document.querySelectorAll('.intro, main section').forEach(section => {
+    const atmosphere = document.createElement('div');
+    atmosphere.className = 'page-atmosphere';
+    atmosphere.setAttribute('aria-hidden', 'true');
+    section.prepend(atmosphere);
+  });
+
   // Ambient motion belongs to decoration, runs only in view, and is always pausable.
   let ambientObserver;
   if ('IntersectionObserver' in window) {
     ambientObserver = new IntersectionObserver(entries => {
       for (const entry of entries) entry.target.classList.toggle('motion-visible', entry.isIntersecting);
     });
-    document.querySelectorAll('.profile-orbit, .interest-visual, .timeline>li').forEach(el => ambientObserver.observe(el));
+    document.querySelectorAll('.intro, main section, .profile-orbit, .interest-visual, .timeline>li').forEach(el => ambientObserver.observe(el));
   }
 
   if ('IntersectionObserver' in window) {
@@ -126,7 +134,18 @@
   });
   window.addEventListener('hashchange', () => {
     const target = currentTarget();
-    if (target) settleTarget(target);
+    if (!target) return;
+    settleTarget(target);
+    const panels = target.id === 'home'
+      ? document.querySelectorAll('.main-navigation, .site-header')
+      : target.matches('main section')
+        ? [...target.children].filter(el => !el.classList.contains('page-atmosphere'))
+        : [];
+    // Section selection gets a visible transition; anchors still scroll natively.
+    [...panels].forEach((panel, i) => {
+      seen.delete(panel);
+      arrive(panel, i ? 16 : -12, 12, Math.min(i * 75, 225), .45, 1050);
+    });
   });
   // Stop on hidden tabs, printing, restored pages or a live accessibility preference change.
   document.addEventListener('visibilitychange', () => { if (document.hidden) settleAll(); syncMotion(); });
