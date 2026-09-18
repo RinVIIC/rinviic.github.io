@@ -1,3 +1,56 @@
+/* Navigation remains available independently of animation preferences. */
+(() => {
+  'use strict';
+  const container = document.querySelector('.section-navigation');
+  if (!container) return;
+  const drawer = container.querySelector('details');
+  const summary = drawer.querySelector('summary');
+  const links = [...container.querySelectorAll('a')];
+  const sections = [...document.querySelectorAll('main>section')];
+  let scheduled = false;
+  let current;
+  function update() {
+    scheduled = false;
+    const threshold = Math.min(160, innerHeight * .25);
+    let id = 'home';
+    for (const section of sections) {
+      if (section.getBoundingClientRect().top <= threshold) id = section.id;
+    }
+    if (scrollY + innerHeight >= document.documentElement.scrollHeight - 4) id = 'contact';
+    if (id === current) return;
+    current = id;
+    document.documentElement.dataset.section = id;
+    links.forEach(link => {
+      if (link.hash === '#' + id) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+  }
+  function schedule() {
+    if (scheduled) return;
+    scheduled = true;
+    requestAnimationFrame(update);
+  }
+  function close(returnFocus = false) {
+    if (!drawer.open) return;
+    drawer.open = false;
+    if (returnFocus) summary.focus({preventScroll:true});
+  }
+  container.addEventListener('click', event => {
+    if (event.target.closest('a')) close(true);
+  });
+  document.addEventListener('pointerdown', event => {
+    if (!container.contains(event.target)) close();
+  }, {passive:true});
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && drawer.open) { event.preventDefault(); close(true); }
+  });
+  window.addEventListener('scroll', schedule, {passive:true});
+  window.addEventListener('resize', () => { close(); schedule(); }, {passive:true});
+  window.addEventListener('pageshow', schedule);
+  window.addEventListener('hashchange', schedule);
+  update();
+})();
+
 /* Progressive motion only. HTML, links and native details never depend on this file. */
 (() => {
   'use strict';
