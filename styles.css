@@ -168,9 +168,9 @@ h1{font-size:clamp(78px,7.5vw,108px);line-height:.93;letter-spacing:-5px;margin:
 h1>span{display:block}h1 .family-name{margin:3px 0 0 40px}
 .subtitle{align-self:flex-start;font-size:25px;line-height:1.3;letter-spacing:-.7px;max-width:400px;border-top:1px solid #78DEFF80;padding-top:16px;margin-top:22px}
 .hero-links{margin-top:20px;gap:13px 21px;font-size:16px;justify-content:flex-start}
-.profile-orbit{position:absolute;z-index:-1;opacity:.55;pointer-events:none;width:470px;height:470px;top:36px;left:-25px;border:1px solid #78DEFF36;border-radius:50%;transform:rotate(-25deg)}
-.profile-orbit::before{content:"";position:absolute;inset:31px -24px;border:1px solid #78DEFF20;border-radius:50%}
-.profile-orbit::after{content:"";position:absolute;width:9px;height:9px;border-radius:50%;background:#78DEFF;top:62px;right:46px;box-shadow:0 0 18px #78DEFF66}
+.profile-orbit{position:absolute;z-index:-1;opacity:.55;pointer-events:none;width:470px;height:470px;top:36px;left:-25px;border:0;background:radial-gradient(ellipse at 35% 35%,#78DEFF24,transparent 65%);transform:rotate(-25deg)}
+.profile-orbit::before{content:"";position:absolute;inset:31px -24px;background:linear-gradient(135deg,transparent 15%,#78DEFF16 45%,transparent 78%)}
+.profile-orbit::after{content:"";position:absolute;width:100px;height:100px;background:radial-gradient(ellipse,#78DEFF35,transparent 70%);top:62px;right:46px}
 .return-menu{gap:5px;position:fixed;z-index:25;right:max(22px,env(safe-area-inset-right));bottom:max(20px,env(safe-area-inset-bottom));min-height:44px;display:flex;align-items:center;padding:9px 15px;background:#061B43;color:#BDEEFF;border:1px solid #78DEFF80;font:600 16px/1.3 "Barlow Condensed",sans-serif;letter-spacing:1px;text-transform:uppercase}
 .return-menu:hover{color:#FFFFFF;background:#075BEE;text-decoration:none}
 @media(prefers-reduced-motion:no-preference){.main-navigation a{transition:translate .18s,transform .18s}.main-navigation a:hover{translate:5px 0}.main-navigation a:active{translate:7px 1px;transform:rotate(-2deg)}}
@@ -237,31 +237,33 @@ h1>span{display:block}h1 .family-name{margin:3px 0 0 40px}
 main section { position:relative; isolation:isolate; }
 .page-atmosphere { position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:-1; }
 .page-atmosphere::before,.page-atmosphere::after { content:""; position:absolute; pointer-events:none; }
-.intro>.page-atmosphere::before { width:130%; height:130%; left:-15%; top:-15%; background:radial-gradient(ellipse at 72% 45%,#269DEB44,transparent 58%),linear-gradient(115deg,transparent 28%,#05265E77 46%,#1685ED44 59%,transparent 77%); }
-.intro>.page-atmosphere::after { width:48%; height:160%; top:-30%; left:25%; border-left:1px solid #78DEFF33; border-right:1px solid #78DEFF1A; background:linear-gradient(90deg,transparent,#52C8FF0D,transparent); transform:skewX(-24deg); }
-main section>.page-atmosphere::before { width:620px; height:620px; right:-230px; top:-180px; border:1px solid #075BEE12; border-radius:50%; background:radial-gradient(ellipse,#69CDFF19,transparent 69%); }
-main section>.page-atmosphere::after { width:65%; height:360px; bottom:10%; left:-15%; background:linear-gradient(125deg,transparent 26%,#075BEE08 26%,#78DEFF12 58%,transparent 58%); }
-main section:nth-child(even)>.page-atmosphere::before { right:auto; left:-260px; top:-100px; }
-#contact>.page-atmosphere::before { background:radial-gradient(ellipse,#078FFF44,transparent 69%); border-color:#78DEFF20; }
-#contact>.page-atmosphere::after { background:linear-gradient(125deg,transparent 26%,#075BEE22 26%,#78DEFF16 58%,transparent 58%); }
+/* Broad borderless light planes replace the thin decorative arcs. */
+.intro>.page-atmosphere::before { width:140%; height:140%; left:-20%; top:-20%; background:radial-gradient(ellipse at 70% 40%,#39C3FF66,transparent 58%),linear-gradient(115deg,transparent 18%,#041C5488 42%,#1685ED66 65%,transparent 85%); }
+.intro>.page-atmosphere::after { width:62%; height:160%; top:-30%; left:15%; background:linear-gradient(90deg,transparent,#65D9FF28 36%,#78DEFF18 70%,transparent); transform:skewX(-24deg); }
+main section>.page-atmosphere::before { width:1000px; height:900px; right:-300px; top:-150px; background:radial-gradient(ellipse at 45% 45%,#59CFFF36,transparent 66%); }
+main section>.page-atmosphere::after { width:95%; height:650px; top:12%; left:-35%; background:linear-gradient(125deg,transparent 22%,#075BEE0A 22%,#78DEFF20 54%,transparent 54%); }
+main section:nth-child(even)>.page-atmosphere::before { right:auto; left:-300px; top:-100px; }
+main section:nth-child(odd)>.page-atmosphere::after { top:28%; }
+#contact>.page-atmosphere::before { background:radial-gradient(ellipse,#078FFF66,transparent 69%); }
+#contact>.page-atmosphere::after { background:linear-gradient(125deg,transparent 22%,#075BEE44 22%,#78DEFF28 54%,transparent 54%); }
 html[data-motion] main section>h2 { position:relative; }
 html[data-motion] main section>h2::after { content:""; position:absolute; width:64px; height:2px; left:0; bottom:-12px; transform-origin:left; background:var(--link); pointer-events:none; }
 html[data-motion] #contact>h2::after { background:var(--cyan); }
 @media(prefers-reduced-motion:no-preference) {
-  html[data-motion] .intro>.page-atmosphere::before { animation:blue-field 14s ease-in-out infinite alternate; }
-  html[data-motion] .intro>.page-atmosphere::after { animation:blue-band 18s ease-in-out infinite alternate; }
-  html[data-motion] main section>.page-atmosphere::before { animation:section-field 12s ease-in-out infinite alternate; }
-  html[data-motion] main section>.page-atmosphere::after { animation:section-band 16s ease-in-out infinite alternate; }
+  html[data-motion] .intro>.page-atmosphere::before { animation:blue-field 9s ease-in-out infinite alternate; }
+  html[data-motion] .intro>.page-atmosphere::after { animation:blue-band 11s ease-in-out infinite alternate; }
+  html[data-motion] main section>.page-atmosphere::before { animation:section-field 8s ease-in-out infinite alternate; }
+  html[data-motion] main section>.page-atmosphere::after { animation:section-band 10s ease-in-out infinite alternate; }
   html[data-motion] main section>h2::after { animation:chapter-line 5s ease-in-out infinite; }
   html[data-motion] .page-atmosphere::before,html[data-motion] .page-atmosphere::after,html[data-motion] main section>h2::after { animation-play-state:paused; }
   html[data-motion="running"] .motion-visible>.page-atmosphere::before,html[data-motion="running"] .motion-visible>.page-atmosphere::after,html[data-motion="running"] main section.motion-visible>h2::after { animation-play-state:running; }
-  @keyframes blue-field { from {transform:translate(-8%,3%) scale(1)} to {transform:translate(10%,-4%) scale(1.1)} }
-  @keyframes blue-band { from {transform:translateX(-36%) skewX(-24deg);opacity:.45} to {transform:translateX(48%) skewX(-24deg);opacity:1} }
-  @keyframes section-field { from {transform:translate(-25px,0) scale(.95);opacity:.55} to {transform:translate(40px,65px) scale(1.08);opacity:1} }
-  @keyframes section-band { from {transform:translateX(-12%);opacity:.45} to {transform:translateX(60%);opacity:1} }
+  @keyframes blue-field { from {transform:translate(-12%,6%) scale(.95)} to {transform:translate(14%,-8%) scale(1.12)} }
+  @keyframes blue-band { from {transform:translateX(-60%) skewX(-24deg);opacity:.55} to {transform:translateX(85%) skewX(-24deg);opacity:1} }
+  @keyframes section-field { from {transform:translate(-90px,-45px) scale(.85);opacity:.65} to {transform:translate(130px,100px) scale(1.15);opacity:1} }
+  @keyframes section-band { from {transform:translateX(-24%);opacity:.55} to {transform:translateX(85%);opacity:1} }
   @keyframes chapter-line { 0%,100% {transform:scaleX(.45);opacity:.45} 50% {transform:scaleX(1);opacity:1} }
 }
-@media(max-width:620px) { main section>.page-atmosphere::before {width:400px;height:400px;right:-240px} .intro>.page-atmosphere::after {width:70%;left:15%} }
+@media(max-width:620px) { main section>.page-atmosphere::before {width:620px;height:700px;right:-320px} .intro>.page-atmosphere::after {width:85%;left:5%} }
 @media print { .page-atmosphere,html[data-motion] main section>h2::after {display:none} }
 /* Ambient decoration: pause control is independent of the original layout. */
 .motion-toggle { position:fixed; z-index:25; right:max(22px,env(safe-area-inset-right)); bottom:calc(max(20px,env(safe-area-inset-bottom)) + 54px); min-height:44px; padding:8px 12px; border:1px solid #78DEFF80; border-radius:0; background:#061B43; color:#BDEEFF; font:600 14px/1.3 "Barlow Condensed",sans-serif; letter-spacing:.7px; text-transform:uppercase; cursor:pointer; touch-action:manipulation; }
@@ -270,9 +272,9 @@ html[data-motion] #contact>h2::after { background:var(--cyan); }
 @media(max-width:620px) { .motion-toggle { right:max(12px,env(safe-area-inset-right)); bottom:calc(max(12px,env(safe-area-inset-bottom)) + 54px); } }
 @media(prefers-reduced-motion:no-preference) {
   html[data-motion] .profile-orbit { animation:orbit-breathe 8s ease-in-out infinite; }
-  html[data-motion] .profile-orbit::before { animation:orbit-drift 24s linear infinite; }
+  html[data-motion] .profile-orbit::before { animation:orbit-drift 10s ease-in-out infinite alternate; }
   html[data-motion] .profile-orbit::after { animation:orbit-signal 5s ease-in-out infinite; }
-  html[data-motion] .interest-visual svg { animation:diagram-float 7s ease-in-out infinite; }
+  html[data-motion] .interest-visual svg { animation:diagram-float 5s ease-in-out infinite; }
   html[data-motion] .interests li:nth-child(2) svg { animation-delay:-2s; }
   html[data-motion] .interests li:nth-child(3) svg { animation-delay:-4s; }
   html[data-motion] .timeline>li::before { animation:timeline-breathe 6s ease-in-out infinite; }
@@ -280,9 +282,9 @@ html[data-motion] #contact>h2::after { background:var(--cyan); }
   html[data-motion] .profile-orbit,html[data-motion] .profile-orbit::before,html[data-motion] .profile-orbit::after,html[data-motion] .interest-visual svg,html[data-motion] .timeline>li::before { animation-play-state:paused; }
   html[data-motion="running"] .profile-orbit.motion-visible,html[data-motion="running"] .profile-orbit.motion-visible::before,html[data-motion="running"] .profile-orbit.motion-visible::after,html[data-motion="running"] .interest-visual.motion-visible svg,html[data-motion="running"] .timeline>li.motion-visible::before { animation-play-state:running; }
   @keyframes orbit-breathe { 0%,100% {scale:1;opacity:.55} 50% {scale:1.045;opacity:.9} }
-  @keyframes orbit-drift { from {rotate:0deg} to {rotate:360deg} }
+  @keyframes orbit-drift { from {translate:-20px -12px;rotate:-12deg} to {translate:36px 22px;rotate:16deg} }
   @keyframes orbit-signal { 0%,100% {scale:1;opacity:.65} 50% {scale:1.45;opacity:1} }
-  @keyframes diagram-float { 0%,100% {translate:0 0} 50% {translate:0 -5px} }
+  @keyframes diagram-float { 0%,100% {translate:0 0} 50% {translate:0 -8px} }
   @keyframes timeline-breathe { 0%,100% {scale:1;opacity:.65} 50% {scale:1.3;opacity:1} }
 }
 html[data-motion="paused"] { scroll-behavior:auto; }
